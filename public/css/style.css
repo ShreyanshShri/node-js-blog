@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding: 0;
+   
+}
+body{
+    background-color: begin;
+    max-width: 100vw;
+    max-height: 100vh;
+
+}
+#u{
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 3;
+}
+#center{
+    text-align: center;
+}
+#form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+a{
+    text-decoration: none;
+    color: bisque;
+}
+.navbar{
+    padding: 10px;
+}
+/* .header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgba(241, 234, 247, 0.877);
+   
+    color: white;
+    display: none;
+} */
+.header .title{
+    font-size: 1rem;
+    margin:0 1rem;
+    color: rgb(20, 19, 19);
+}
+.header .listHeader{
+    display: flex;
+}
+
+.header .listHeader *{
+    padding: .3rem;
+    background-color: rgb(241, 104, 104);
+    margin: 3px;
+    font-size: 0.6rem;
+   border-radius: 22% 78% 47% 53% / 49% 68% 32% 51%; 
+}
+
+.card{
+    margin-bottom: 5px;
+    padding:  1rem 0.4rem;
+}
+.card.post{
+    margin-top: 10px;
+}
+form{
+    width: 89%;
+    margin:5%;
+}
+@media screen and (min-width: 750px) {
+    #form{
+        flex-direction: row;
+    }
+    #center{
+        margin-left: 5rem;
+    }
+}
