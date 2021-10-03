@@ -1,26 +1,25 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 var _ = require('lodash');
+const Post = require('./models/Post')
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://coder:blog1234@cluster0.ppjqv.mongodb.net/BlogDB', {useNewUrlParser: true, useUnifiedTopology: true});
+const { MongoServerSelectionError } = require('mongodb');
+// mongoose.connect('mongodb+srv://coder:blog1234@cluster0.ppjqv.mongodb.net/BlogDB', {useNewUrlParser: true, useUnifiedTopology: true}, () => console.log('connected to db'));
+mongoose.connect('mongodb://localhost/coder-blog', {useNewUrlParser: true, useUnifiedTopology: true}, () => console.log('connected to db'));
 
 const app = express();
 app.use(express.static(__dirname+'/public'))
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({extxended:true}))
 
-
-const postSchema= new mongoose.Schema({
-    name:String,
-    content:String
-})
-
-const Post = mongoose.model('Post',postSchema);
-const posts = [];
 app.get('/',(req,res)=>{
 
 Post.find({},function (err,foundList) {
     // console.log(foundList.length)
+    if (err) {
+        console.log(err)
+        return res.send('<h1>an error occured</h1>')
+    }
     if(foundList.length==0){
         const homePost= new Post({
             name:'home',
@@ -48,6 +47,17 @@ app.post('/add',(req,res)=>{
     res.redirect('/');
     // console.log();
 })
+
+app.post('/posts/delete/:id' , async(req, res) => {
+    try {
+        await Post.findByIdAndDelete(req.params.id)
+        res.redirect('/')
+    } catch (err) {
+        res.send('an error occured')
+    }
+})
+
+
 app.get('/posts/:postID',(req,res)=>{
    
 const requestTitle = _.lowerCase(req.params.postID);
@@ -58,6 +68,7 @@ Post.findOne({name:requestTitle},function (err,docs) {
     })
 })
 })
+
 
 app.get('/error',(req,res)=>{
     res.render('error')

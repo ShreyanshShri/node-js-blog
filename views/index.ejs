@@ -15,7 +15,12 @@
   <div class="card post">
     <h5 class="card-header"><%= ele.name %></h5>
     <div class="card-body">
-      <p class="card-text"><%= ele.content.substring(0,100) %>.... <br><br> <a href="posts/<%=ele.name%>" class="btn btn-primary">Read more</a></p>
+      <p class="card-text"><%= ele.content.substring(0,100) %>.... <br><br> 
+        <a href="posts/<%=ele.name%>" class="btn btn-primary">Read more</a>
+        <form style='display: inline; padding: 0; margin: 0;' action="/posts/delete/<%= ele._id %>" method="post">
+          <button type="submit" class="btn btn-outline-danger">Delete</button>
+        </form>
+      </p>
     </div>
   </div>
  <% }) %>
